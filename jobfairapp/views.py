@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def home_view(request):
     return render(request,'navbar.html')
+
+def login(request):
+    return render(request,'login.html')
