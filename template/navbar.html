@@ -1,0 +1,76 @@
+{% load static %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap" rel="stylesheet">
+<style>
+
+  ul {
+      display: table;
+      margin: 10px;
+      margin-left: 500px;
+      border-radius: 8px;
+  }
+  ul li {
+      list-style: none;
+      display: inline-block;
+      margin-left: 50px;
+  }
+  ul li a {
+      font-family: timesnewroman;
+      text-decoration: none;
+      position: relative;
+      margin-left:10px;
+      font-size: 18px;
+      display: block;
+  }
+  ul li a + a {
+      margin-left: 16px;
+  }
+  ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      width: 100%;
+      height: 4px;
+      background-color: rgb(141, 220, 102);
+      transform-origin: bottom right;
+      transition: transform 0.5s ease;
+      transform: scaleX(0);
+  }
+  ul a:hover::after {
+      transform-origin: bottom left;
+      transform: scaleX(1);
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-light" style="padding:10px;">
+    <div class="container-fluid" style="font-family:'ABeeZee',sans-serif;font-weight:700;">
+      <a class="navbar-brand" href="#" style="margin-left:30px;padding: 1px;"><img src = "" alt="image" width="100" height="auto"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <h1>The HR Company</h1>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav ms-auto navbar-nav-scroll blink-text-menu" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#" style="font-family:timesnewroman; font-size:20px;">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="font-size:20px;">What we do</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style=" font-size:20px;">students Corner</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="font-size:20px;">college Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="font-size:20px;">contact us</a>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </nav>
