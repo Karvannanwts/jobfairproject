@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The HR Company</title>
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f1f7fc;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .category-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .category-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .category-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .category-card h5 {
+            background-color: orange;
+            color: white;
+            padding: 15px;
+            margin: 0;
+        }
+        .category-card p {
+            padding: 20px;
+            margin: 0;
+            background-color: white;
+        }
+        img{
+            height: 40x;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="mb-4">The HR Company</h1>
+        <p class="lead mb-5">Please note that The HR Company initiative is available in the India geography.</p>
+        <p class="mb-5">You have a choice to apply for IT or BPS. Please note that you can register with us under only one category, and registering in the incorrect category may lead you to repeat the entire registration process.</p>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="category-card">
+                    <a href="{% url 'register_email' %}?category=it">
+                        <img src="{% static 'assets/images/it.jpg'%}" style="width: 450px;height: 200px;" alt="Information Technology">
+                        <h5>IT</h5>
+                        <p>Information Technology</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="category-card">
+                    <a href="{% url 'register_email' %}?category=bps">
+                        <img src="{% static 'assets/images/bpo.png'%}" style="width: 450px;height: 200px;" alt="Business Process Services">
+                        <h5>BPS</h5>
+                        <p>Business Process Services</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

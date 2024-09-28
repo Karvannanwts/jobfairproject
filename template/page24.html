@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hr Company - Application Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* Header Section */
+        .tcs-header {
+            background-color: #0056a3;
+            padding: 20px;
+            color: white;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        /* Navbar Section */
+        .navbar {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+        }
+        .navbar a {
+            color: #000;
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a.active {
+            color: #0094cf;
+        }
+
+        /* Form Section */
+        .form-container {
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-section-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Instructions Section */
+        .instruction-section {
+            margin-top: 20px;
+        }
+
+        .instructions-header {
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .instructions-list {
+            color: #007bff;
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .instructions-list li {
+            margin-bottom: 10px;
+            color: #333; /* Adjust text color if needed */
+        }
+
+        /* Button Styles */
+        .submit-btn {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .btn-continue {
+            background-color: #ff7518;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        /* Fix for anchor tag styling */
+        .form-link {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .form-label {
+            display: inline-block;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="tcs-header">
+        <span>Hr Company</span>
+    </div>
+
+    <!-- Form Container -->
+    <div class="container form-container">
+        <!-- Application Form Header -->
+        <div class="form-header">
+            <h3>Application Form</h3>
+        </div>
+
+        <!-- Navbar Section -->
+        <div class="navbar">
+            <a href="#">Personal Details</a>
+            <a href="{% url 'academic' %}" class="active">Academic and Work Experience Details</a>
+            <a href="{% url 'other_details' %}">Other Details</a>
+            <a href="{% url 'preview' %}">Application Form Preview and Declaration</a>
+        </div>
+        <br><br><br>
+        <!-- Instructions and Form Sections -->
+        <div class="row">
+            <!-- Form Section (Left Side) -->
+            <div class="col-md-6">
+                <div class="form-section-header">Academic Details</div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic' %}" class="form-link">
+                        <label for="qualification" class="form-label">Instructions</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'academic_qualification' %}" class="form-link">
+                        <label for="qualification" class="form-label" >Highest Qualification category Details</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic_graduate' %}" class="form-link">
+                        <label for="gradeX" class="form-label" >Graduate</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'academic_xii_grade' %}" class="form-link">
+                        <label for="gradeXII" class="form-label"style="color: black;">XII Grade Equivalent Diploma</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="#gradeX-section" class="form-link">
+                        <label for="gradeX" class="form-label">X Grade</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'other_qualificaion' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Any Other Qualification</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'work_exp' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Work Experience Details</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="#workExperience-section" class="form-link">
+                        <label for="workExperience" class="form-label">Declaration</label>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Form Section (Right Side) -->
+            <div class="col-md-6">
+                <form>
+                    {% csrf_token %}
+                    <!-- Course Name -->
+                    <div class="form-group mb-3 mt-3">
+                        <label class="form-label" style="font-weight: bold;">Select Relevant Course:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="relevant-course" id="xii-grade" value="xii-grade">
+                            <label class="form-check-label" for="xii-grade">
+                                XII Grade
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="relevant-course" id="relevant-diploma" value="relevant-diploma">
+                            <label class="form-check-label" for="relevant-diploma">
+                                Relevant Diploma
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="relevant-course" id="both" value="both">
+                            <label class="form-check-label" for="both">
+                                Both
+                            </label>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+        <!-- Continue Button -->
+        <div class="submit-btn">
+            <button type="button" class="btn btn-continue">Continue</button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

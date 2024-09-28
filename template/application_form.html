@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCS NextStep Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #0072C6;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #e8e8e8;
+            color: #333;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: #0072C6;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .form-group input[type="radio"] {
+            margin-right: 10px;
+        }
+        .form-group .note {
+            font-size: 12px;
+            color: red;
+        }
+        .preview-btn {
+            background-color: #F37021;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Welcome </h1>
+    </div>
+
+    <div class="container">
+        <h2>Application Form</h2>
+
+        <div class="tabs">
+            <div class="tab">Personal Details</div>
+            <div class="tab">Academic and Work Experience Details</div>
+            <div class="tab">Other Details</div>
+            <div class="tab active">Application Form Preview and Declaration</div>
+        </div>
+
+        <div class="form-group">
+            <label>Security Details:</label>
+            <p>(i) Are you involved in any pending and/or closed Civil / Criminal / case / proceedings / charges / enquiry prior to joining TCS?</p>
+            <input type="radio" name="criminal_case" value="yes"> Yes
+            <input type="radio" name="criminal_case" value="no"> No
+        </div>
+
+        <div class="form-group">
+            <p>(ii) Are you involved in any pending and/or closed Disciplinary / malpractices and/or any other charges / proceedings / enquiry / case pending against me in any University or any other educational authority / institution prior to joining TCS?</p>
+            <input type="radio" name="disciplinary_case" value="yes"> Yes
+            <input type="radio" name="disciplinary_case" value="no"> No
+            <p class="note">*If the answer to any of the above-mentioned questions is YES give full particulars of the case / arrest / detention / fine / conviction / sentence / punishment etc.</p>
+        </div>
+
+        <div class="form-group">
+            <button class="preview-btn">Application Form Preview</button>
+        </div>
+
+    </div>
+
+</body>
+</html>

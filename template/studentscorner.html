@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #9eb0d6;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .buttoncontainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 180px;
+        }
+
+        .buttoncontainer button {
+            padding: 15px 30px;
+            font-size: 16px;
+        }
+        
+        .card-img-top{
+            height:150px;
+            width: 150px;
+            margin-left: 60px;
+            padding: 20px;
+        }
+        .btn-orange {
+            background-color: #f4476b;
+            border-color: #f4476b;
+            color: white;
+        }
+
+        .btn-orange:hover {
+            background-color: #f4476b;
+            border-color: #f4476b;
+        }
+        .card{
+            border: 1px solid orange;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        }
+        #existingStudentBtn{
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttoncontainer">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center" style="width: 18rem;">
+                    <img class="card-img-top" src="{% static 'assets/images/newstudent.png' %}" alt="New Student">
+                    <div class="card-body">
+                        <a href="{% url 'personal_1' %}">
+                            <button id="newStudentBtn" class="btn btn-orange btn-block">New Student</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center" style="width: 18rem;">
+                    <img class="card-img-top" src="{% static 'assets/images/existingstudent.png' %}" alt="Existing Student">
+                    <div class="card-body">
+                        <button id="existingStudentBtn" class="btn btn-orange btn-block" data-toggle="modal" data-target="#loginModal">Existing Student</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    
+    <!-- Existing Student Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Existing Student Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="userId">User ID:</label>
+                            <input type="text" id="userId" name="userId" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-orange">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginModal = $('#loginModal');
+            
+            // Handle form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form (you can add custom validation logic here)
+                const userId = document.getElementById('userId').value;
+                const password = document.getElementById('password').value;
+
+                if (userId && password) {
+                    // Hide the login modal
+                    loginModal.modal('hide');
+
+                    // Redirect to the student preview page
+                    window.location.href = "{% url 'student_preview' %}?userId=" + userId;
+                } else {
+                    alert("Please fill in both fields.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

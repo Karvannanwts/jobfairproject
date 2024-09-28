@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hr Company - Application Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #9eb0d6;
+        }
+
+        /* Header Section */
+        .tcs-header {
+            background-color: #0056a3;
+            padding: 20px;
+            color: white;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        /* Navbar Section */
+        .navbar {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+        }
+
+        .navbar a {
+            color: #000;
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar a.active {
+            color: #0094cf;
+        }
+
+        /* Form Section */
+        .form-container {
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-section-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Instructions Section */
+        .instruction-section {
+            margin-top: 20px;
+        }
+
+        .instructions-header {
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .instructions-list {
+            color: #007bff;
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .instructions-list li {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* Button Styles */
+        .submit-btn {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .btn-continue {
+            background-color: #f4476b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        /* Fix for anchor tag styling */
+        .form-link {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .form-label {
+            display: inline-block;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="tcs-header">
+        <span>Hr Company</span>
+    </div>
+
+    <!-- Form Container -->
+    <div class="container form-container">
+        <!-- Application Form Header -->
+        <div class="form-header">
+            <h3>Application Form</h3>
+        </div>
+
+        <!-- Navbar Section -->
+        <div class="navbar">
+            <a href="{% url 'personal_1' %}">Personal Details</a>
+            <a href="{% url 'academic' %}" class="active">Academic and Work Experience Details</a>
+            <a href="{% url 'other_details' %}">Other Details</a>
+            <a href="{% url 'preview' %}">Application Form Preview and Declaration</a>
+        </div>
+        
+        <!-- Instructions and Form Sections -->
+        <div class="row">
+            <!-- Academic Details Section (Left Side) -->
+            <div class="col-md-6">
+                <div class="form-section-header">Academic Details</div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic' %}" class="form-link">
+                        <label for="qualification" class="form-label">Instructions</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'academic_qualification' %}" class="form-link">
+                        <label for="qualification" style="color: black;" class="form-label">Highest Qualification Category Details</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic_graduate' %}" class="form-link">
+                        <label for="gradeX" class="form-label">Graduate</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'academic_xii_grade' %}" class="form-link">
+                        <label for="gradeXII" class="form-label">XII Grade Equivalent Diploma</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic_x_grade' %}" class="form-link">
+                        <label for="gradeX" class="form-label">X Grade</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'other_qualificaion' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Any Other Qualification</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'work_exp' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Work Experience Details</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'arrear' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Arrears</label>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Form Section (Right Side) -->
+            <div class="col-md-6">
+                <form id="academicForm" onsubmit="return validateForm();">
+                    {% csrf_token %}
+                    <!-- Institute Name -->
+                    <div class="form-group mb-3">
+                        <label for="institute-name" style="font-weight: bold;">Institute Name:</label>
+                        <input type="text" id="institute-name" name="institute_name" class="form-control" placeholder="Enter Institute Name" required>
+                        <div id="instituteNameError" class="text-danger" style="display:none;">Please enter the correct institute name.</div>
+                    </div>
+                
+                    <!-- Highest Qualification -->
+                    <div class="form-group mb-3">
+                        <label for="highest-qualification" style="font-weight: bold;">Highest Qualification:</label>
+                        <select id="highest-qualification" name="highest-qualification" class="form-control" required>
+                            <option value="">Select Qualification</option>
+                            <option value="high-school">High School</option>
+                            <option value="bachelor-degree">Bachelor's Degree</option>
+                            <option value="master-degree">Master's Degree</option>
+                        </select>
+                        <div id="highestQualificationError" class="text-danger" style="display:none;">Please select your highest qualification.</div>
+                    </div>
+                
+                    <!-- Stream -->
+                    <div class="form-group mb-3">
+                        <label for="stream" style="font-weight: bold;">Stream:</label>
+                        <select id="stream" name="stream" class="form-control" required>
+                            <option value="">Select Stream</option>
+                            <option value="Arts&science">Arts & Science</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Diploma">Diploma</option>
+                        </select>
+                        <div id="streamError" class="text-danger" style="display:none;">Please select your stream.</div>
+                    </div>
+                
+                    <!-- Year of Passing -->
+                    <div class="form-group mb-3">
+                        <label for="year-of-passing" style="font-weight: bold;">Year of Passing:</label>
+                        <select id="year-of-passing" name="year_of_passing" class="form-control" required>
+                            <option value="">Select Year</option>
+                            <!-- Year options will be populated dynamically -->
+                        </select>
+                        <div id="yearOfPassingError" class="text-danger" style="display:none;">Please select your year of passing.</div>
+                    </div>
+                    
+                    <input type="hidden" name="email" value="{{ email }}"> <!-- Ensure email is passed -->
+                    
+                    <!-- Continue Button -->
+                    <div class="submit-btn">
+                        <button type="submit" class="btn btn-continue">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Script to dynamically populate Year of Passing -->
+    <script>
+        const startYear = 2000;
+        const endYear = 2024;
+        const select = document.getElementById('year-of-passing');
+        for (let year = startYear; year <= endYear; year++) {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            select.appendChild(option);
+        }
+    </script>
+
+    <script>
+        function validateForm() {
+            // Clear previous errors
+            const errorElements = [
+                'instituteNameError', 'highestQualificationError', 'streamError', 'yearOfPassingError'
+            ];
+            errorElements.forEach(id => document.getElementById(id).style.display = 'none');
+
+            // Get form values
+            const instituteName = document.getElementById('institute-name').value;
+            const highestQualification = document.getElementById('highest-qualification').value;
+            const stream = document.getElementById('stream').value;
+            const yearOfPassing = document.getElementById('year-of-passing').value;
+
+            let valid = true;
+
+            // Validate form fields
+            if (instituteName.length < 8 || /\d/.test(instituteName)) {
+                document.getElementById('instituteNameError').style.display = 'block';
+                valid = false;
+            }
+            if (!highestQualification) {
+                document.getElementById('highestQualificationError').style.display = 'block';
+                valid = false;
+            }
+            if (!stream) {
+                document.getElementById('streamError').style.display = 'block';
+                valid = false;
+            }
+            if (!yearOfPassing) {
+                document.getElementById('yearOfPassingError').style.display = 'block';
+                valid = false;
+            }
+
+            // If the form is valid, submit using AJAX
+            if (valid) {
+                const formData = new FormData(document.getElementById('academicForm'));
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                fetch("{% url 'academic_qualification' %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.href = "{% url 'academic_graduate' %}";
+                        });
+                    } else {
+                        let errorMessage = data.message;
+                        if (data.errors) {
+                            errorMessage += '<br>' + data.errors.join('<br>');
+                        }
+                        Swal.fire({
+                            title: 'Error!',
+                            html: errorMessage,
+                            icon: 'error',
+                            confirmButtonText: 'Try Again'
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Something went wrong during submission.',
+                        icon: 'error',
+                        confirmButtonText: 'Try Again'
+                    });
+                });
+
+                return false; // Prevent traditional form submission
+            }
+
+            return valid; // If form is invalid, prevent submission
+        }
+    </script>
+</body>
+</html>

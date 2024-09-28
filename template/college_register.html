@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Registration & Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #9eb0d6;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .buttoncontainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 180px;
+        }
+        .buttoncontainer button {
+            padding: 15px 30px;
+            font-size: 16px;
+        }
+        .card-img-top {
+            height: 150px;
+            width: 150px;
+            margin-left: 60px;
+            padding: 20px;
+        }
+        .btn-orange {
+            background-color: #f4476b;
+            border-color: #f4476b;
+            color: white;
+        }
+        .btn-orange:hover {
+            background-color: #f4476b;
+            border-color: #f4476b;
+        }
+        .card {
+            border: 1px solid orange;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        }
+        #registeredCollegeBtn {
+            margin-right: 10px;
+        }
+        .modal-body {
+            max-height: 430px;
+            overflow-y: auto;
+        }
+        .modal-dialog {
+            margin: 30px auto;
+        }
+        .modal-content {
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttoncontainer">
+        <div class="row">
+            <div class="col-6">
+                <div class="card text-center" style="width: 18rem;">
+                    <img class="card-img-top" src="{% static 'assets/images/add.png' %}" alt="Add New College">
+                    <div class="card-body">
+                        <button id="newCollegeBtn" class="btn btn-orange btn-block" data-toggle="modal" data-target="#collegeModal">New College</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card text-center" style="width: 18rem;">
+                    <img class="card-img-top" src="{% static 'assets/images/register.png' %}" alt="Registered College">
+                    <div class="card-body">
+                        <button id="registeredCollegeBtn" class="btn btn-orange btn-block" data-toggle="modal" data-target="#loginModal">Registered College</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New College Modal -->
+    <div class="modal fade" id="collegeModal" tabindex="-1" role="dialog" aria-labelledby="collegeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="collegeModalLabel">New College Registration</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="collegeForm" method="POST">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="userId">
+                        <input type="hidden" name="password">
+                        <div class="form-group">
+                            <label for="principalName">College Name:</label>
+                            <input type="text" id="collegeName" name="collegeName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="principalName">College Location:</label>
+                            <input type="text" id="collegelocation" name="collegelocation" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="stream">College Stream:</label>
+                            <select id="stream" name="stream" class="form-control" required>
+                                <option value="">Select</option>
+                                <option value="Arts">Arts</option>
+                                <option value="Engineering">Engineering</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="collegeto">College to be:</label>
+                            <select id="collegeto" name="collegeto" class="form-control" required>
+                                <option value="">Select</option>
+                                <option value="autonomous">Autonomous</option>
+                                <option value="university">University</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="naacacreadation">NAAC acreadation :</label>
+                            <input type="text" id="naacacreadation" name="naacacreadation" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="principalName">Principal's Name:</label>
+                            <input type="text" id="principalName" name="principalName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="principalNumber">Principal's Number:</label>
+                            <input type="text" id="principalNumber" name="principalNumber" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="principalMail">Principal's Email:</label>
+                            <input type="email" id="principalMail" name="principalMail" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="placementOfficerName">Placement Officer's Name:</label>
+                            <input type="text" id="placementOfficerName" name="placementOfficerName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="placementOfficerNumber">Placement Officer's Number:</label>
+                            <input type="text" id="placementOfficerNumber" name="placementOfficerNumber" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="placementOfficerMail">Placement Officer's Email:</label>
+                            <input type="email" id="placementOfficerMail" name="placementOfficerMail" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="placementNumber">Number of Departments:</label>
+                            <input type="number" id="departments" name="departments" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="totalStudentsUG">Total Number of Students (UG):</label>
+                            <input type="number" id="totalStudentsUG" name="totalStudentsUG" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalStudentsPG">Total Number of Students (PG):</label>
+                            <input type="number" id="totalStudentsPG" name="totalStudentsPG" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="principalMail">College Email:</label>
+                            <input type="email" id="collegeMail" name="collegeMail" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="principalNumber">College Number:</label>
+                            <input type="text" id="collegeNumber" name="collegeNumber" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="college_type">College Type</label>
+                            <select id="college_type" name="college_type" class="form-control" required>
+                                <option value="">Select</option>
+                                <option value="Womens">Womens</option>
+                                <option value="Co-Ed">Co-Ed</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-orange">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registered College Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Registered College Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="userId">User ID:</label>
+                            <input type="text" id="userId" name="userId" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-orange">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var csrfToken = '{{ csrf_token }}';
+
+            $('#collegeForm').on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'college_registration' %}", // Change to your registration URL
+                    data: $(this).serialize(),
+                    headers: { 'X-CSRFToken': csrfToken },
+                    success: function (response) {
+                        alert('College registered successfully!');
+                        $('#collegeModal').modal('hide');
+                    },
+                    error: function (xhr) {
+                        alert('Error: ' + xhr.responseText);
+                    }
+                });
+            });
+
+            $('#loginForm').on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'college_preview' %}", // Change to your login URL
+                    data: $(this).serialize(),
+                    headers: { 'X-CSRFToken': csrfToken },
+                    success: function (response) {
+                        window.location.href =  "{% url 'college_preview' %}?userId=" + userId; // Redirect if login is successful
+                    },
+                    error: function (xhr) {
+                        alert('Error: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

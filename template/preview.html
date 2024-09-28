@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data</title>
+    <style>
+        .details { display: none; margin-top: 20px; }
+        .user-summary { cursor: pointer; }
+    </style>
+    <script>
+        function toggleDetails(email) {
+            var details = document.getElementById("details-" + email);
+            if (details.style.display === "none") {
+                details.style.display = "block";
+            } else {
+                details.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>User Data</h1>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_detail in user_details %}
+            <tr class="user-summary" onclick="toggleDetails('{{ user_detail.user.email }}')">
+                <td>{{ user_detail.user.firstname }}</td>
+                <td>{{ user_detail.user.lastname }}</td>
+                <td>{{ user_detail.user.email }}</td>
+                <td>Click to View Details</td>
+            </tr>
+            <tr id="details-{{ user_detail.user.email }}" class="details">
+                <td colspan="4">
+                    <h3>{{ user_detail.user.firstname }} {{ user_detail.user.lastname }}</h3>
+                    <p>Email: {{ user_detail.user.email }}</p>
+                    <p>Aadhar: {{ user_detail.user.aadhar }}</p>
+                    <p>Date of Birth: {{ user_detail.user.date }} {{ user_detail.user.month }} {{ user_detail.user.year }}</p>
+
+                    {% if user_detail.personal_details %}
+                    <h4>Personal Details</h4>
+                    <p>Gender: {{ user_detail.personal_details.gender }}</p>
+                    <p>Mobile: {{ user_detail.personal_details.mobile }}</p>
+                    <p>Address: {{ user_detail.personal_details.house_no }}, {{ user_detail.personal_details.street_name }}, {{ user_detail.personal_details.city }}, {{ user_detail.personal_details.state }}, {{ user_detail.personal_details.pincode }}</p>
+                    {% endif %}
+
+                    {% if user_detail.academic_details %}
+                    <h4>Academic Details</h4>
+                    <ul>
+                        {% for academic in user_detail.academic_details %}
+                        <li>{{ academic.institute_name }} - {{ academic.high_qualification }} ({{ academic.passed_out }})</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if user_detail.course_details %}
+                    <h4>Course Details</h4>
+                    <ul>
+                        {% for course in user_detail.course_details %}
+                        <li>{{ course.course_name }} - {{ course.course_duration_start }} to {{ course.course_duration_end }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if user_detail.xii_and_diploma %}
+                    <h4>XII and Diploma</h4>
+                    <ul>
+                        {% for xii in user_detail.xii_and_diploma %}
+                        <li>{{ xii.specialization }} - {{ xii.university }} ({{ xii.duration_start }} to {{ xii.duration_end }})</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if user_detail.xth_details %}
+                    <h4>Xth Details</h4>
+                    <ul>
+                        {% for xth in user_detail.xth_details %}
+                        <li>{{ xth.roll_no }} - {{ xth.university }} ({{ xth.duration_start }} to {{ xth.duration_end }})</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if user_detail.other_qualifications %}
+                    <h4>Other Qualifications</h4>
+                    <ul>
+                        {% for other in user_detail.other_qualifications %}
+                        <li>{{ other.course_name }} - {{ other.university }} ({{ other.duration_start }} to {{ other.duration_end }})</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if user_detail.work_experience %}
+                    <h4>Work Experience</h4>
+                    <ul>
+                        {% for work in user_detail.work_experience %}
+                        <li>{{ work.name }} - {{ work.designation }} ({{ work.duration_from }} to {{ work.duration_to }})</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if user_detail.other_details %}
+                    <h4>Other Details</h4>
+                    <p>Nationality: {{ user_detail.other_details.nationality }}</p>
+                    <p>Languages: {{ user_detail.other_details.language }}</p>
+                    <p>Mother Tongue: {{ user_detail.other_details.mother_tongue }}</p>
+                    {% endif %}
+
+                    {% if user_detail.photo_cv %}
+                    <h4>Photo & CV</h4>
+                    <img src="{{ user_detail.photo_cv.photo.url }}" alt="{{ user_detail.user.firstname }}'s Photo" width="150">
+                    <p><a href="{{ user_detail.photo_cv.cv.url }}">Download CV</a></p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Link to a URL or redirect logic for the submit button -->
+    <button type="button">Submit</button>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hr Company - Application Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            background-color: #9eb0d6;
+        }
+
+        .tcs-header {
+            background-color: #0056a3;
+            padding: 20px;
+            color: white;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+        }
+        .navbar a {
+            color: #000;
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a.active {
+            color: #0094cf;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .btn-continue {
+            background-color: #f4476b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .form-label {
+            display: inline-block;
+            margin: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="tcs-header">
+        <span>Hr Company</span>
+    </div>
+
+    <!-- Form Container -->
+    <div class="container form-container">
+        <!-- Application Form Header -->
+        <div class="form-header text-center">
+            <h3>Application Form</h3>
+        </div>
+
+        <!-- Navbar Section -->
+        <div class="navbar">
+            <a href="{% url 'personal_1' %}">Personal Details</a>
+            <a href="{% url 'academic' %}" class="active">Academic and Work Experience Details</a>
+            <a href="{% url 'other_details' %}">Other Details</a>
+            <a href="{% url 'preview' %}">Application Form Preview and Declaration</a>
+        </div>
+
+        <div class="row">
+            <!-- Left Section -->
+            <div class="col-md-6">
+                <div class="form-section-header">Academic Details</div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic' %}" class="form-link">
+                        <label for="qualification" class="form-label">Instructions</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'academic_qualification' %}" class="form-link">
+                        <label for="qualification" class="form-label" >Highest Qualification category Details</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic_graduate' %}" class="form-link">
+                        <label for="gradeX" class="form-label" >Graduate</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'academic_xii_grade' %}" class="form-link">
+                        <label for="gradeXII" class="form-label"style="color: black;">XII Grade Equivalent Diploma</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'academic_x_grade' %}" class="form-link">
+                        <label for="gradeX" class="form-label">X Grade</label>
+                    </a>
+                </div>
+                
+                <div class="mb-3">
+                    <a href="{% url 'other_qualificaion' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Any Other Qualification</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'work_exp' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Work Experience Details</label>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <a href="{% url 'arrear' %}" class="form-link">
+                        <label for="workExperience" class="form-label">Arrears</label>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Right Section -->
+            <div class="col-md-6">
+                <div class="container form-container">
+                    <div class="form-section-header">Select Relevant Course</div>
+                    <div class="form-group">
+                        <label>Please select the relevant course:</label><br>
+                        <input required type="radio" id="12thGrade" name="course" value="12thGrade" onclick="toggleForms('12thGrade');">
+                        <label for="12thGrade">12th Grade</label><br>
+                        <input required type="radio" id="equivalentDiploma" name="course" value="equivalentDiploma" onclick="toggleForms('equivalentDiploma');">
+                        <label for="equivalentDiploma">Equivalent Diploma</label>
+                    </div>
+                </div>
+            
+                <!-- 12th Grade Form -->
+                <form method="POST" id="12thGradeForm" class="hidden">
+                    {% csrf_token %}
+                    <div class="container form-container">
+                        <div class="form-section-header">12th Grade Details</div>
+                        <div class="form-group">
+                            <label>Board of Education:</label>
+                            <select required id="boardSelection" name="boardSelection" class="form-control">
+                                <option value="" disabled selected>Select Board</option>
+                                <option value="cbse">CBSE</option>
+                                <option value="stateBoard">State Board</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Specialization:</label>
+                            <input type="text" id="specialization12th" name="specialization12th" class="form-control" placeholder="Enter specialization" 
+                                   pattern="^(?!.*\s{4,})(?=(?:.*[a-zA-Z]){3,})[a-zA-Z0-9\s]+$" 
+                                   title="Must contain at least 3 letters and cannot have more than three consecutive spaces." required>
+                        </div>
+                        <div class="form-group">
+                            <label>School Name</label>
+                            <input type="text" id="university12th" name="university12th" class="form-control" placeholder="Enter university/board name" 
+                                   pattern="^(?!.*\s{4,})(?=(?:.*[a-zA-Z]){5,})[a-zA-Z0-9\s]+$" 
+                                   title="Must contain at least 5 letters and cannot have more than three consecutive spaces." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Course Start date:</label>
+                            <input required type="date" id="durationFrom12th" name="durationFrom12th" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Course End date:</label>
+                            <input required type="date" id="durationTo12th" name="durationTo12th" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Course Type:</label><br>
+                            <input required type="radio" id="fullTime12th" name="courseType12th" value="fullTime">
+                            <label for="fullTime12th">Full Time</label><br>
+                            <input required type="radio" id="partTime12th" name="courseType12th" value="partTime">
+                            <label for="partTime12th">Part Time</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Grading System:</label><br>
+                            <input required type="radio" id="cgpaSystem12th" name="gradingSystem12th" value="cgpaSystem12th" onclick="toggleGrading12th(true);">
+                            <label for="cgpaSystem12th">Percentage</label><br>
+                            <input required type="radio" id="marksSystem12th" name="gradingSystem12th" value="marksSystem12th" onclick="toggleGrading12th(false);">
+                            <label for="marksSystem12th">Marks</label>
+                        </div>
+                        <div id="cgpaInputs12th" class="hidden">
+                            <div class="form-group">
+                                <label>Marks Obtained:</label>
+                                <input type="number" id="cgpaObtained12th" name="cgpaObtained12th" class="form-control" placeholder="Enter CGPA obtained" min="0" max="10">
+                            </div>
+                        </div>
+                        <div id="marksInputs12th" class="hidden">
+                            <div class="form-group">
+                                <label>Percentage Obtained:</label>
+                                <input type="number" id="marksObtained12th" name="marksObtained12th" class="form-control" placeholder="Enter marks obtained" min="0" max="100">
+                            </div>
+                        </div>
+                        <div class="submit-btn">
+                            <button type="submit" class="btn btn-continue">Submit 12th Grade</button>
+                        </div>
+                    </div>
+                </form>
+            
+                <!-- Equivalent Diploma Form -->
+                <form method="POST" id="equivalentDiplomaForm" class="hidden">
+                    {% csrf_token %}
+                    <div class="container form-container">
+                        <div class="form-section-header">Equivalent Diploma Details</div>
+                        <div class="form-group">
+                            <label>Course Name</label>
+                            <input type="text" id="Coursename" name="Coursename" class="form-control" placeholder="Enter Course name" 
+                                   pattern="^(?!.*\s{4,})(?=(?:.*[a-zA-Z]){5,})[a-zA-Z0-9\s]+$" 
+                                   title="Must contain at least 5 letters and cannot have more than three consecutive spaces." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Specialization:</label>
+                            <input type="text" id="specializationDiploma" name="specializationDiploma" class="form-control" placeholder="Enter specialization" 
+                                   pattern="^(?!.*\s{4,})(?=(?:.*[a-zA-Z]){3,})[a-zA-Z0-9\s]+$" 
+                                   title="Must contain at least 3 letters and cannot have more than three consecutive spaces." required>
+                        </div>
+                        <div class="form-group">
+                            <label>University/institution :</label>
+                            <input type="text" id="universityDiploma" name="universityDiploma" class="form-control" placeholder="Enter university/board name" 
+                                   pattern="^(?!.*\s{4,})(?=(?:.*[a-zA-Z]){5,})[a-zA-Z0-9\s]+$" 
+                                   title="Must contain at least 5 letters and cannot have more than three consecutive spaces." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Course Duration (From):</label>
+                            <input required type="date" id="durationFromDiploma" name="durationFromDiploma" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Course Duration (To):</label>
+                            <input required type="date" id="durationToDiploma" name="durationToDiploma" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Course Type:</label><br>
+                            <input required type="radio" id="fullTimeDiploma" name="courseTypeDiploma" value="fullTime">
+                            <label for="fullTimeDiploma">Full Time</label><br>
+                            <input required type="radio" id="partTimeDiploma" name="courseTypeDiploma" value="partTime">
+                            <label for="partTimeDiploma">Part Time</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Grading System:</label><br>
+                            <input required type="radio" id="cgpaSystemDiploma" name="gradingSystemDiploma" value="cgpaSystemDiploma" onclick="toggleGradingDiploma(true);">
+                            <label for="cgpaSystemDiploma">CGPA</label><br>
+                            <input required type="radio" id="marksSystemDiploma" name="gradingSystemDiploma" value="marksSystemDiploma" onclick="toggleGradingDiploma(false);">
+                            <label for="marksSystemDiploma">Percentage</label>
+                        </div>
+                        <div id="cgpaInputsDiploma" class="hidden">
+                            <div class="form-group">
+                                <label for="cgpaObtainedDiploma">CGPA Obtained:</label>
+                                <input type="number" id="cgpaObtainedDiploma" name="cgpaObtainedDiploma" class="form-control" placeholder="Enter CGPA obtained" min="0" max="10">
+                            </div>
+                        </div>
+                        <div id="marksInputsDiploma" class="hidden">
+                            <div class="form-group">
+                                <label for="marksObtainedDiploma">Percentage Obtained:</label>
+                                <input type="number" id="marksObtainedDiploma" name="marksObtainedDiploma" class="form-control" placeholder="Enter marks obtained" min="0" max="100">
+                            </div>
+                        </div>
+                        <div class="submit-btn">
+                            <button type="submit" class="btn btn-continue">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+
+    <script>
+        function toggleCourseDetails(showDiplomaDetails) {
+            document.getElementById('12thGradeDetails').classList.toggle('hidden', showDiplomaDetails);
+            document.getElementById('equivalentDiplomaDetails').classList.toggle('hidden', !showDiplomaDetails);
+        }
+
+        function toggle12thDetails(show12th) {
+            document.getElementById('12thGradeDetails').classList.toggle('hidden', !show12th);
+        }
+
+        function toggleGrading12th(showCGPA) {
+            document.getElementById('cgpaInputs12th').classList.toggle('hidden', !showCGPA);
+            document.getElementById('marksInputs12th').classList.toggle('hidden', showCGPA);
+        }
+        // Set today's date as the maximum date for the start date input
+        const today = new Date().toISOString().split('T')[0];
+        const startDateInput = document.getElementById('durationFrom12th');
+        const endDateInput = document.getElementById('durationTo12th');
+
+        // Set the max attribute for the start date input
+        startDateInput.max = today;
+
+        startDateInput.addEventListener('change', function() {
+            const startDate = startDateInput.value;
+            endDateInput.min = startDate;  // Set minimum date in the end date input to the selected start date
+        });
+        
+    </script>
+    <script>
+        function toggleGrading12th(isCGPA) {
+            var cgpaInputs = document.getElementById('cgpaInputsDiploma');
+            var marksInputs = document.getElementById('marksInputsDiploma');
+            var cgpaObtained = document.getElementById('cgpaObtainedDiploma');
+            var marksObtained = document.getElementById('marksObtainedDiploma');
+
+            if (isCGPA) {
+                cgpaInputs.classList.remove('hidden');
+                marksInputs.classList.add('hidden');
+                cgpaObtained.setAttribute('required', true);
+                marksObtained.removeAttribute('required');
+                marksObtained.value = ''; // Clear marks input when CGPA is selected
+            } else {
+                cgpaInputs.classList.add('hidden');
+                marksInputs.classList.remove('hidden');
+                marksObtained.setAttribute('required', true);
+                cgpaObtained.removeAttribute('required');
+                cgpaObtained.value = ''; // Clear CGPA input when Marks is selected
+            }
+
+            // Force form validation update
+            cgpaObtained.reportValidity();
+            marksObtained.reportValidity();
+        }
+    </script>
+    <script>
+        function toggleGradingDiploma(isCGPA) {
+            var cgpaInputs = document.getElementById('cgpaInputsDiploma');
+            var marksInputs = document.getElementById('marksInputsDiploma');
+            var cgpaObtained = document.getElementById('cgpaObtainedDiploma');
+            var marksObtained = document.getElementById('marksObtainedDiploma');
+
+            if (isCGPA) {
+                cgpaInputs.classList.remove('hidden');
+                marksInputs.classList.add('hidden');
+                cgpaObtained.setAttribute('required', true);
+                marksObtained.removeAttribute('required');
+                marksObtained.value = ''; // Clear marks input when CGPA is selected
+            } else {
+                cgpaInputs.classList.add('hidden');
+                marksInputs.classList.remove('hidden');
+                marksObtained.setAttribute('required', true);
+                cgpaObtained.removeAttribute('required');
+                cgpaObtained.value = ''; // Clear CGPA input when Marks is selected
+            }
+
+            // Force form validation update
+            cgpaObtained.reportValidity();
+            marksObtained.reportValidity();
+        }
+    </script>
+    <script>
+        function toggleGrading12th(isCGPA) {
+            var cgpaInputs = document.getElementById('cgpaInputs12th');
+            var marksInputs = document.getElementById('marksInputs12th');
+            var cgpaObtained = document.getElementById('cgpaObtained12th');
+            var marksObtained = document.getElementById('marksObtained12th');
+    
+            if (isCGPA) {
+                cgpaInputs.classList.remove('hidden');
+                marksInputs.classList.add('hidden');
+                cgpaObtained.setAttribute('required', true);
+                marksObtained.removeAttribute('required');
+                marksObtained.value = ''; // Clear marks input when CGPA is selected
+            } else {
+                cgpaInputs.classList.add('hidden');
+                marksInputs.classList.remove('hidden');
+                marksObtained.setAttribute('required', true);
+                cgpaObtained.removeAttribute('required');
+                cgpaObtained.value = ''; // Clear CGPA input when Marks is selected
+            }
+    
+            // Force form validation update
+            cgpaObtained.reportValidity();
+            marksObtained.reportValidity();
+        }
+    </script>
+
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this); // Capture the form data
+
+            // Send the data using fetch
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value, // Django CSRF token
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the JSON response
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success'
+                    }).then(() => {
+                        // Redirect after success
+                        window.location.href = '{% url "academic_x_grade" %}'; // Adjust to your actual URL
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.message,
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Something went wrong, please try again later.',
+                    icon: 'error'
+                });
+            });
+        });
+    });
+</script>
+    
+<script>
+    function toggleForms(selectedCourse) {
+        document.getElementById('12thGradeForm').classList.add('hidden');
+        document.getElementById('equivalentDiplomaForm').classList.add('hidden');
+
+        if (selectedCourse === '12thGrade') {
+            document.getElementById('12thGradeForm').classList.remove('hidden');
+        } else if (selectedCourse === 'equivalentDiploma') {
+            document.getElementById('equivalentDiplomaForm').classList.remove('hidden');
+        }
+    }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .verification-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .alert-note {
+            background-color: #f8f9fa;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .alert-note strong {
+            color: #dc3545;
+        }
+        .btn-custom {
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mb-4">The HR Company</h1>
+    
+<div class="verification-container">
+    
+
+    
+    <h4 class="mb-4">Verification / Personal Details</h4>
+    <div class="alert alert-note">
+        <p>Please note that The HR Company initiative is available in the India geography.</p>
+        <p><strong>Kindly use personal email domain addresses for registering into the Application instead of Institute/College email domain names for smooth communication post academics tenure completion.</strong></p>
+    </div>
+
+    <h5>Verification of your email</h5>
+    <p class="mb-4">We will send the verification code to your email ID</p>
+
+    <form method="POST">
+        <div class="form-group">
+            {% csrf_token %}
+            <input type="hidden" name="category" value="{{ category }}">
+            <label for="email">Email</label>
+            <input type="email" class="form-control is-invalid" id="email" name="email" placeholder="Enter your email">
+            <div class="invalid-feedback">
+                You can't leave this empty
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-success btn-custom">Get OTP</button>
+            <a href="{% url 'signin' %}" class="btn btn-secondary btn-custom">Cancel</a>
+        </div>
+    </form>
+</div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

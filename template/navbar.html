@@ -1,76 +1,193 @@
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap" rel="stylesheet">
-<style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
 
-  ul {
-      display: table;
-      margin: 10px;
-      margin-left: 500px;
-      border-radius: 8px;
-  }
-  ul li {
-      list-style: none;
-      display: inline-block;
-      margin-left: 50px;
-  }
-  ul li a {
-      font-family: timesnewroman;
-      text-decoration: none;
-      position: relative;
-      margin-left:10px;
-      font-size: 18px;
-      display: block;
-  }
-  ul li a + a {
-      margin-left: 16px;
-  }
-  ul li a::after {
-      content: '';
-      position: absolute;
-      left: 0px;
-      bottom: 0px;
-      width: 100%;
-      height: 4px;
-      background-color: rgb(141, 220, 102);
-      transform-origin: bottom right;
-      transition: transform 0.5s ease;
-      transform: scaleX(0);
-  }
-  ul a:hover::after {
-      transform-origin: bottom left;
-      transform: scaleX(1);
-  }
-</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-<nav class="navbar navbar-expand-lg bg-light" style="padding:10px;">
-    <div class="container-fluid" style="font-family:'ABeeZee',sans-serif;font-weight:700;">
-      <a class="navbar-brand" href="#" style="margin-left:30px;padding: 1px;"><img src = "" alt="image" width="100" height="auto"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <h1>The HR Company</h1>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav ms-auto navbar-nav-scroll blink-text-menu" style="--bs-scroll-height: 100px;">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#" style="font-family:timesnewroman; font-size:20px;">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="font-size:20px;">What we do</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" style=" font-size:20px;">students Corner</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="font-size:20px;">college Registration</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="font-size:20px;">contact us</a>
-          </li>
-        
-        </ul>
-      </div>
+    <style>
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .otp-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-in-out;
+        }
+
+        .otp-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #343a40;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .otp-instruction {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .otp-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .otp-input {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            text-align: center;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .otp-input:focus {
+            border-color: #ff6600;
+        }
+
+        .btn-verify {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-verify:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        .resend-link {
+            color: #007bff;
+            text-align: center;
+            margin-top: 20px;
+            display: block;
+        }
+
+        .resend-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .otp-image {
+            flex: 1;
+            background-image: url('https://via.placeholder.com/400x400'); 
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            margin-left: 20px;
+            animation: fadeInRight 1s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .otp-container {
+                flex-direction: column;
+                padding: 30px;
+            }
+
+            .otp-image {
+                display: none;
+            }
+
+            .otp-content {
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="otp-container animate__animated animate__fadeInUp">
+        <div class="otp-content">
+            <h1>OTP Verification</h1>
+            <p class="otp-instruction">We have sent a 6-digit OTP to your email. Please enter it below to verify your account.</p>
+
+            <!-- OTP Inputs -->
+            <div class="otp-inputs">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+            </div>
+
+            <!-- Verify Button -->
+            <button class="btn-verify">Verify OTP</button>
+
+            <!-- Resend OTP Link -->
+            <a href="#" class="resend-link">Resend OTP</a>
+        </div>
+
+        <!-- Illustration Image Section -->
+        <div class="otp-image"></div>
     </div>
-  </nav>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

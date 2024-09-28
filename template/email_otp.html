@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .verification-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            width: 120px;
+        }
+        .timer {
+            margin-left: 10px;
+            color: #6c757d;
+            font-weight: bold;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+        }
+        .form-group input {
+            margin-right: 10px;
+        }
+        .alert-note {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="verification-container">
+    <h5>OTP Verification</h5>
+    <p class="mb-4">We emailed you a 4 Digit code for verification on your registered email ID. Enter the code to confirm your email.</p>
+    <p class="alert-note">Kindly enter the OTP manually.</p>
+
+    <form id="otpForm" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="otp" placeholder="OTP" maxlength="6">
+            <span id="timer" class="timer">5:00</span>
+            <a href="#" id="resendLink" class="ml-3" style="display: none;">Resend OTP</a>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-success btn-custom">Submit</button>
+            <a href="{% url 'register_email' %}" class="btn btn-secondary btn-custom">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Timer Script -->
+<script>
+    // Set the initial timer duration in seconds (5 minutes)
+    let timeLeft = 300;
+
+    const timerElement = document.getElementById('timer');
+    const resendLink = document.getElementById('resendLink');
+
+    // Function to start the timer
+    function startTimer() {
+        const countdown = setInterval(() => {
+            // Calculate minutes and seconds remaining
+            const minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+
+            // Add leading zero to seconds if less than 10
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // Display the timer
+            timerElement.textContent = `${minutes}:${seconds}`;
+
+            // Decrease time left
+            timeLeft--;
+
+            // If time is up, stop the timer and show the "Resend OTP" link
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                timerElement.textContent = '00:00';
+                resendLink.style.display = 'inline';
+            }
+        }, 1000);
+    }
+
+    // Start the timer when the page loads
+    window.onload = startTimer;
+
+    // Handle form submission with AJAX
+    document.getElementById('otpForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+
+        const formData = new FormData(this);
+
+        fetch('{% url "email_otp" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',  // Make sure the request is recognized as AJAX
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.message,
+                    icon: 'success'
+                }).then(() => {
+                    // Optionally redirect or perform other actions here
+                    window.location.href = '{% url "aadhar" %}';
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'error'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+</body>
+</html>

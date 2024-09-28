@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'jobfairapp',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'jobfairapp.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend', 
 ]
 
 MIDDLEWARE = [
@@ -77,7 +83,7 @@ WSGI_APPLICATION = 'jobfairproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'grobase',
+        'NAME': 'jobfairdatabase',
         'USER': 'root',
         'HOST': 'localhost',
         'PASSWORD' :'Msdhoni07@kar',
@@ -124,10 +130,30 @@ STATIC_URL = 'static/'
 
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # or 'static' if using Django 3.1 or below
+    os.path.join(BASE_DIR, 'static'),
 ]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # For Gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'karvannan200016@gmail.com'
+EMAIL_HOST_PASSWORD = "vysv xfji eayo ieah"
+DEFAULT_FROM_EMAIL = 'karvannan200016@gmail.com'
+
+
+# settings.py
+
+TWILIO_ACCOUNT_SID = 'ACe8e4f241f6f02cc4897881fd6ac74a9b'
+TWILIO_AUTH_TOKEN = '93ba5d596c0ba59c2e32123e5aa2b3f7'
+TWILIO_PHONE_NUMBER = '+916382518155'

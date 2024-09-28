@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Company - Application Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            background-color: #9eb0d6;
+        }
+        .tcs-header {
+            background-color: #0056a3;
+            padding: 20px;
+            color: white;
+            font-size: 28px;
+            text-align: center;
+        }
+        .navbar {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+        }
+        .navbar a {
+            color: #000;
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a.active {
+            color: #0094cf;
+        }
+        .form-link {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+        .form-container {
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .form-section-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .submit-btn {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .btn-continue {
+            background-color: #f4476b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="tcs-header">
+        <span>HR Company</span>
+    </div>
+    <div class="container form-container">
+        <div class="form-header">
+            <h3>Application Form</h3>
+        </div>
+
+        <!-- Navbar Section -->
+        <div class="navbar">
+            <a href="{% url 'personal_1' %}">Personal Details</a>
+            <a href="{% url 'academic' %}">Academic and Work Experience Details</a>
+            <a href="{% url 'other_details' %}" class="active">Other Details</a>
+            <a href="{% url 'preview' %}">Application Form Preview and Declaration</a>
+        </div>
+
+        <!-- Content Section -->
+        <div class="container">
+            <div class="row">
+                <!-- Left Side (Other Details) -->
+                <div class="col-md-4">
+                    <div class="form-section-header">Other Details</div>
+                    <div class="mb-3">
+                        <a href="{% url 'other_details' %}" class="form-link">
+                            <label for="qualification" class="form-label">Nationality and Languages Known</label>
+                        </a>
+                    </div>
+                    <div class="mb-3">
+                        <a href="{% url 'resume' %}" class="form-link">
+                            <label for="cv" class="form-label" style="color: black;">Upload Photo / CV</label>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side (Form Section) -->
+                <div class="col-md-8">
+                    <!-- Form Container -->
+                    <div class="form-container">
+                        <!-- Nationality Form -->
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="nationality">Nationality</label>
+                                <select  id="nationality" name="nationality" class="form-select" required>
+                                    <option value="afghan">Afghan</option>
+                                    <option value="argentine">Argentine</option>
+                                    <option value="australian">Australian</option>
+                                    <option value="brazilian">Brazilian</option>
+                                    <option value="canadian">Canadian</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="egyptian">Egyptian</option>
+                                    <option value="french">French</option>
+                                    <option value="german">German</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="italian">Italian</option>
+                                    <option value="japanese">Japanese</option>
+                                    <option value="mexican">Mexican</option>
+                                    <option value="nigerian">Nigerian</option>
+                                    <option value="south_korean">South Korean</option>
+                                </select>
+                            </div>
+
+                            <h4>Languages Known</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Language</th>
+                                        <th>Speak</th>
+                                        <th>Read</th>
+                                        <th>Write</th>
+                                        <th>Mother Tongue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="languages-body">
+                                    <tr>
+                                        <td>
+                                            <select required name="language" class="form-select">
+                                                <option value="">Select Language</option>
+                                                <option value="tamil">Tamil</option>
+                                                <option value="hindi">Hindi</option>
+                                                <option value="malayalam">Malayalam</option>
+                                                <option value="telugu">Telugu</option>
+                                                <option value="english">English</option>
+                                                <option value="kannada">Kannada</option>
+                                                <option value="bengali">Bengali</option>
+                                                <option value="marathi">Marathi</option>
+                                                <option value="gujarati">Gujarati</option>
+                                                <option value="punjabi">Punjabi</option>
+                                                <option value="urdu">Urdu</option>
+                                                <option value="arabic">Arabic</option>
+                                                <option value="mandarin">Mandarin</option>
+                                                <option value="japanese">Japanese</option>
+                                                <option value="korean">Korean</option>
+                                                <option value="vietnamese">Vietnamese</option>
+                                                <option value="thai">Thai</option>
+                                                <option value="indonesian">Indonesian</option>
+                                                <option value="filipino">Filipino</option>
+                                                <option value="malaysian">Malaysian</option>
+                                                <option value="nepali">Nepali</option>
+                                                <option value="sinhala">Sinhala</option>
+                                                <option value="others">Others</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="checkbox" name="speak" class="form-check-input"></td>
+                                        <td><input type="checkbox" name="read" class="form-check-input"></td>
+                                        <td><input type="checkbox" name="write" class="form-check-input"></td>
+                                        <td><input type="checkbox" name="mother-tongue" class="form-check-input"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <button type="button" class="btn btn-primary" onclick="addRow()">Add New Row</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteRow()">Delete Row</button>
+
+                            <br><br>
+                            <!-- Continue Button -->
+                            <div class="submit-btn">
+                                <button type="submit" class="btn btn-continue">Continue</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Add/Remove Row Script -->
+    <script>
+        function addRow() {
+            let table = document.getElementById("languages-body");
+            let row = table.insertRow();
+            row.innerHTML = `
+                <td>
+                    <select required name="language" class="form-select">
+                        <option value="">Select Language</option>
+                        <option value="tamil">Tamil</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="malayalam">Malayalam</option>
+                        <option value="telugu">Telugu</option>
+                        <option value="english">English</option>
+                        <option value="kannada">Kannada</option>
+                        <option value="bengali">Bengali</option>
+                        <option value="marathi">Marathi</option>
+                        <option value="gujarati">Gujarati</option>
+                        <option value="punjabi">Punjabi</option>
+                        <option value="urdu">Urdu</option>
+                        <option value="arabic">Arabic</option>
+                        <option value="mandarin">Mandarin</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="korean">Korean</option>
+                        <option value="vietnamese">Vietnamese</option>
+                        <option value="thai">Thai</option>
+                        <option value="indonesian">Indonesian</option>
+                        <option value="filipino">Filipino</option>
+                        <option value="malaysian">Malaysian</option>
+                        <option value="nepali">Nepali</option>
+                        <option value="sinhala">Sinhala</option>
+                        <option value="others">Others</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" name="speak" class="form-check-input"></td>
+                <td><input type="checkbox" name="read" class="form-check-input"></td>
+                <td><input type="checkbox" name="write" class="form-check-input"></td>
+                <td><input type="checkbox" name="mother-tongue" class="form-check-input"></td>
+            `;
+        }
+
+        function deleteRow() {
+            let table = document.getElementById("languages-body");
+            if (table.rows.length > 1) {
+                table.deleteRow(-1);
+            }
+        }
+    </script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            const formData = new FormData(this); // Capture the form data
+    
+            // Send the data using fetch
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value, // Django CSRF token
+                }
+            })
+            .then(response => response.json()) // Parse the JSON response
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success'
+                    }).then(() => {
+                        // Redirect after success
+                        window.location.href = '{% url "resume" %}'; // Adjust to your actual URL
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.message,
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Something went wrong, please try again later.',
+                    icon: 'error'
+                });
+            });
+        });
+     </script>
+</body>
+</html>
